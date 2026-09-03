@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+- Changed: updated for **Sandustry 0.5.6**. Requires game **0.5.6** or newer.
+
 ## 1.1.0
 
 - Changed: updated for **Sandustry 0.5.5**. Requires game **0.5.5** or newer.
