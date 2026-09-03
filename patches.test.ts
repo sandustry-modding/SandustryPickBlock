@@ -5,11 +5,15 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import vm from "node:vm";
-import { patches } from "./patches.ts";
 
 const ROOT = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
+const HERE = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = join(ROOT, "sandustry/0.5.5-mods/dist/js/bundle.js");
-const WORKSHOP = join(ROOT, "sandustry/workshop-mods.js");
+const WORKSHOP = join(ROOT, "sandustry/0.5.5-mods/workshop-mods.js");
+const PATCHES = JSON.parse(readFileSync(join(HERE, "patches.json"), "utf8")) as {
+  id: string;
+  file: string;
+}[];
 
 test("patches keep extracted bundle.js parseable", { skip: !existsSync(BUNDLE) }, () => {
   const require = createRequire(import.meta.url);
@@ -19,7 +23,7 @@ test("patches keep extracted bundle.js parseable", { skip: !existsSync(BUNDLE) }
       patches: unknown[],
     ) => { sources: Map<string, string>; results: { applied: boolean; patch: { id: string } }[] };
   };
-  const bundlePatches = patches.filter((patch) => patch.file === "js/bundle.js");
+  const bundlePatches = PATCHES.filter((patch) => patch.file === "js/bundle.js");
   const { sources, results } = applyPatchSet(
     new Map([["js/bundle.js", readFileSync(BUNDLE, "utf8")]]),
     bundlePatches,

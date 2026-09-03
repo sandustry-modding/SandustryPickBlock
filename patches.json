@@ -1,0 +1,10 @@
+[
+  {
+    "id": "instant-pick-block-picker-down",
+    "file": "js/bundle.js",
+    "find": "down:e=>{QA=!0}",
+    "operation": "replace",
+    "code": "down:e=>{QA=!0;if(globalThis.__sandkitPickBlockInstant__){e.session.input.mouse.clicked=!0;const t=e.sandkit.keyBindings.Picker.handlers;t.pressed&&t.pressed(e);e.session.input.mouse.clicked=!1;QA=!1}}",
+    "expectedMatches": 1
+  }
+]

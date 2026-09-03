@@ -21,7 +21,7 @@ Rebind under **Options → Controls → Pick Block**.
 - Requires **Sandustry 0.5.5** or newer.
 - Pick rules, filters, colors, and toasts are vanilla — this mod only bypasses the hold-and-click step.
 - The shortcut helper may still say “Hold F”; the key now picks on press when the mod is enabled.
-- Uses a `js/bundle.js` patch (`patches.ts`). After a game update, rebuild and run tests if the patch fails to apply.
+- Uses a `js/bundle.js` patch (`patches.json`). After a game update, rebuild and run tests if the patch fails to apply.
 
 ## Workshop
 

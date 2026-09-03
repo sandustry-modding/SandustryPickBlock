@@ -1,7 +1,5 @@
 import { defineModInfo } from "@modkit/modinfo";
 
-export { patches } from "./patches";
-
 export const modinfo = defineModInfo({
   manifestVersion: 1,
   id: "irishbruse.pick-block",
