@@ -1,15 +1,10 @@
 import { isEnabled } from "@modkit/utils";
+import { installPickTrigger, type PickBindingApi } from "./pick/binding";
 
 const api = sandkit.api;
 
-function apply() {
-  const enabled = isEnabled(api);
-  console.log(enabled ? "enabled" : "disabled");
-
-  (globalThis as any).__sandkitPickBlockInstant__ = enabled;
-}
-
-apply();
-api.settings.onChange(apply);
+installPickTrigger(api as PickBindingApi, {
+  useInstantPick: () => isEnabled(api),
+});
 
 console.log("loaded");

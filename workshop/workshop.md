@@ -1,6 +1,8 @@
 # Instant Pick Block
 
-Press **Picker** (default **F**) to pick the structure under the cursor. One key press. No hold and no extra click.
+Press **Picker** (default **middle click**) to pick the structure under the cursor.
+One press.
+No hold and no extra click.
 
 Rebind in **Options → Controls → Pick Block**.
 
