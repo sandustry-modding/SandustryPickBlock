@@ -13,7 +13,7 @@ The mod only skips the hold-and-click step.
 
 Vanilla flow was: hold **Picker**, left click, then release.
 
-If the vanilla Picker binding is missing, the mod registers **Instant pick block**.
+If the vanilla Picker binding is missing, the mod registers **Instant pick block** (default **F**).
 
 ## Options
 

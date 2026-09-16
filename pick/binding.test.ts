@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { pickerDefaultKeys, wrapPickerDown, type PickBindingApi } from "./binding.ts";
+import { pickerDefaultKeys, wrapPickerDown } from "./binding.ts";
 import type { PickerHandlers } from "./pick.ts";
 
 test("wrapPickerDown runs vanilla pressed with a faked click", () => {
@@ -17,7 +17,10 @@ test("wrapPickerDown runs vanilla pressed with a faked click", () => {
     },
   };
   const keyBindings = { Picker: { handlers } };
-  assert.equal(wrapPickerDown(keyBindings, { useInstantPick: () => true }), true);
+  assert.equal(
+    wrapPickerDown(keyBindings, () => true),
+    true,
+  );
   keyBindings.Picker.handlers.down?.(state);
   assert.deepEqual(calls, ["vanilla-pressed"]);
   assert.equal(state.session.input.mouse.clicked, false);
@@ -37,37 +40,33 @@ test("wrapPickerDown keeps vanilla down when instant pick is off", () => {
       },
     },
   };
-  wrapPickerDown(keyBindings, { useInstantPick: () => false });
+  wrapPickerDown(keyBindings, () => false);
   keyBindings.Picker.handlers.down();
   assert.deepEqual(calls, ["vanilla-down"]);
 });
 
 test("wrapPickerDown returns false when Picker pressed is missing", () => {
   assert.equal(
-    wrapPickerDown({ Picker: { handlers: { down: () => {} } } }, { useInstantPick: () => true }),
+    wrapPickerDown({ Picker: { handlers: { down: () => {} } } }, () => true),
     false,
   );
 });
 
 test("pickerDefaultKeys uses vanilla Picker keys when present", () => {
-  const api = {
-    input: {
-      getBoundKeys: (id: string) => {
-        assert.equal(id, "Picker");
-        return ["KeyG"];
-      },
-    },
-  } as unknown as PickBindingApi;
-  assert.deepEqual(pickerDefaultKeys(api), ["KeyG"]);
+  assert.deepEqual(
+    pickerDefaultKeys((id) => {
+      assert.equal(id, "Picker");
+      return ["KeyG"];
+    }),
+    ["KeyG"],
+  );
 });
 
-test("pickerDefaultKeys falls back to MouseMiddle", () => {
-  const api = {
-    input: {
-      getBoundKeys: () => {
-        throw new Error("missing");
-      },
-    },
-  } as unknown as PickBindingApi;
-  assert.deepEqual(pickerDefaultKeys(api), ["MouseMiddle"]);
+test("pickerDefaultKeys falls back to KeyF", () => {
+  assert.deepEqual(
+    pickerDefaultKeys(() => {
+      throw new Error("missing");
+    }),
+    ["KeyF"],
+  );
 });
